@@ -8,6 +8,8 @@
 \usepackage{indentfirst}
 \usepackage{caption}
 \usepackage{lscape}
+\usepackage{multirow}
+\usepackage{array}
 
 \renewcommand{\labelenumii}{\alph*)}
 
@@ -37,8 +39,75 @@
 	\item In the travelers' dilemma, players $ i\in \{1,2\} $ submit claims $ c_i $, with $ c_i $ an integer such that $ 180 \leq c_i \leq 300 $. 
 	\begin{enumerate}
 		\item The process of elimination of weakly dominated strategies can be defined as follows. The initial set of strategies is given by 
-		\[S_i^0 = \{180, 181, \dots, 300 \} \]
+		\[S_i^0 = S_i = \{180, 181, \dots, 300 \} \]
+		and
+		\[\Sigma_i^0 = \Sigma_i \]
+		the set of mixed strategies. At any stage $ n $ in this process, the sets of remaining strategies are given by 
+		\[S_i^n = \{s_i \in S_i^{n - 1} | \nexists \sigma_i \in \Sigma_i^{n - 1} \text{ s.t. } u_i(\sigma_i, s_{-i}) \leq u_i(s_i, s_{-i}) \forall s_{-i} \}\]
+		with at least one strict inequality, and
+		\[\Sigma_i^n = \{\sigma_i \in \Sigma_i^{n - 1} | \sigma_i(s_i) > 0 \text{ only if } s_i \in S^n\}\]
+		In this problem, the process of elimination of weakly dominated strategies occurs in two steps begins with player one eliminating the strategy $ c_1 = 300 $ because, if $ c_2 = 299 $, then player one receives $ 299 - R $, while player 2 receives $ 299 + R $. Thus, in this case, player one would be better off playing $ c_1 = 298 $, and receiving $ 298 + R > 298 $. Player two--who is aware of this incentive that player one has--eliminates the strategy $ c_2 = 299 $, because this strategy is similarly dominated by that of submitting $ c_2 = 297 $. 
+		
+		This process continues until both players reach the Nash Equilibrium: $ c_1 = c_2 = 180 $. 
+		
+		\item If the elimination of weakly dominated strategies yields a single strategy profile $ s^* $, then this profile will be a Nash equilibrium. 
+		\begin{proof}
+			Assume that $ s^* $ is not a Nash Equilibrium. Thus, because the set of strategies $ \mathcal{S} $ is compact and the utility function bounded, $ \exists i $ and $ \exists s_i $ such that $ s_i = \arg \max_{a\in\mathcal{S}} u_i(a, s_{-i}^*)  $. Furthermore, $ s_i $ must have been eliminated at some stage $ n $ in the process of elimination of weakly dominated strategies, and thus $\exists$ $ \sigma_i\in\Sigma_i $ such that 
+			\[u_i(\sigma_i, s_{-i}) \geq u(s_i, s_{-i}) \quad \forall s_{-i}\in S_{-i}^{n - 1} \]
+			If $ \sigma_i = s_i^* $, then the statement is trivially true. However, if $ \sigma_i \neq s_i^* $, then because $ s_{-i}^*\in S_{-i}^{n - 1} $,
+			\[u_i(\sigma_i, s_{-i}^*) \geq u_i(s_i, s_{-i}^*) \]
+			However, this implies that $ \exists $ some $ i $ and $ \exists s_i^\prime $ in the support of $ \sigma_i $ such that 
+			\[u_i(s_i^\prime, s_{-i}^*) > u_i(s_i, s_{-i}^*) \]
+			which contradicts the choice of $ s_i $ to deliver the largest possible deviation from $ s_i^* $. Thus, $ s_i^* $ is a Nash Equilibrium.
+		\end{proof}
+		Note that the equilibrium given by iterated domination of weakly dominated strategies will not be unique. As a counterexample, consider the following game:
+		
+		\begin{table}[!htbp]
+			\centering
+			\setlength{\extrarowheight}{2pt}
+			\begin{tabular}{cc|c|c|}
+				& \multicolumn{1}{c}{} & \multicolumn{1}{c}{$L$}  & \multicolumn{1}{c}{$R$} \\\cline{3-4}
+				 & $U$ & $(0,0)$ & $(1,1)$ \\\cline{3-4}
+				& $D$ & $(0,0)$ & $(0,0)$ \\\cline{3-4}
+			\end{tabular}
+		\end{table}
+		This game has two Nash Equilibria: $ (U,R) $ and $ (D,L) $. However, elimination of weakly dominated strategies will eliminate the first column and the second row, leaving only $ (U,R) $ as an equilibrium. 
+		\end{enumerate}
+	
+	\item The game of dividing cookies has one unique Nash Equilibrium in pure strategies. Denote the number of cookies by $ N $, and the number of students by $ M $. The Nash Equilibrium strategy profile is that in which each student submits the same bid for $ N/M $ cookies. No student has an incentive to deviate from this strategy: if they bid less, while every other student bids $ N/M $, then they will receive their bid, which is less than $ N/M $, and thus they would have been better off bidding $ N/M $. If they submit a bid greater than $ N/M $, then every other student who bid $ N/M $ receives their bid exactly, and the student who bid more receives $ N/M $, which is exactly what they would have received if they had bid $ N/M $. Thus, this is the unique Nash Equilibrium. 
+	
+	\item In this game, players 1 and 2 submit bids $ s $ and $ t $, respectively. Their payoffs are as follows:
+	
+	\begin{align*}
+	u_1(s,t) &= 2\alpha st - s^2 \\
+	u_2(s,t) &= t^3 - 3st
+	\end{align*}
+	\begin{enumerate}
+		\item From the first-order conditions for the two players, we get their reaction functions:
+		\begin{align*}
+		\Gamma_1(t) &= \alpha t \\
+		\Gamma_2(s) &= \pm \sqrt{s} 
+		\end{align*}
+		These functions are plotted below:
+		
+		\begin{figure}[!hbtp]
+			\centering
+			\includegraphics*[scale = 0.5]{plot_4.png}
+			\caption{$ \Gamma_2(s) $ is shown in black. $ \Gamma_1(t) $ for $ \alpha $ values of $ \frac{-3}{4} $, $ \frac{1}{4} $, and 2 are shown in red, green, and blue, respectively.}
+		\end{figure}
+	
+	\item The Nash Equilibria are the points at which the reaction functions intersect. If $ \alpha = -\frac{3}{4} $ (the red line), the Nash Equilibrium is $ (s,t) = (0,0) $. For $ \alpha = \frac{1}{4} $ (the green line), the equilibria are $ (s,t) = (0,0) $ and $ (s,t) = (\frac{1}{16}, \frac{1}{4}) $. For $ \alpha = 2 $ (the blue line), the equilibrium is again $ (s,t) = (0,0) $
 	\end{enumerate}
+	
+	\item In this Bertrand economy, denote the sellers $ s_1 $ and $ s_2 $, who post prices $ p_1 $ and $ p_2 $ respectively.
+	\begin{enumerate}
+		\item The Nash Equilibrium in pure strategies is $ p_1 = p_2 = 0 $. In brief, if either seller posts a nonzeroa price, then the other can simply undercut him by an infinitesimally small amount, and take all of the profits. Thus, neither has an incentive to deviate from a price of zero.
+		
+		\item Even allowing for mixed strategies, the only Nash Equilibrium is $ p_1 = p_2 = 0 $. By definition, an equilibrium mixed strategy must have pure strategies in its support which are not dominated. However, in this setup, every nonzero price is a dominated strategy, as it can be undercut. 
+		
+		\item If a buyer with valuation one is introduced to the problem, then there is still only one Nash Equilibrium: $ p_1 = p_2 = 0 $. The buyer's valuation puts a ceiling on the prices that can be charged, but the ceiling never binds, as each firm has an incentive to undercut the other. 
+	\end{enumerate}
+	
 \end{enumerate}
 
 \end{document}
