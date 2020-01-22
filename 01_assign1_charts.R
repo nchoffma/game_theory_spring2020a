@@ -7,8 +7,9 @@ alphas <- c(-3 / 4, 1 / 4, 2)
 cols <- c("red", "forestgreen", "blue")
 
 plot(s, gamma2, type = "l", xlim = c(-0.1, 1), ylim = c(-0.1, 1),
-     ylab = "t")
+     ylab = "t", main = "Reaction functions")
 for (i in 1:length(alphas)){
   lines(s, s / alphas[i], col = cols[i])
 }
-
+abline(h = 0)
+abline(v = 0)

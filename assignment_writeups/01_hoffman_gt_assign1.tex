@@ -1,9 +1,15 @@
-\documentclass[12pt]{article}
-\usepackage{geometry}
-\geometry{margin=1in}
+\documentclass[11pt]{article}
+\usepackage[margin = 1in]{geometry}
 \usepackage{amsmath}
-\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{amsthm} % for proof environment
+\usepackage{enumitem}
 \usepackage{graphicx}
+\usepackage{indentfirst}
+\usepackage{caption}
+\usepackage{lscape}
+
+\renewcommand{\labelenumii}{\alph*)}
 
 \begin{document}
 
@@ -14,11 +20,25 @@
 \end{flushleft}
 
 \begin{enumerate}
+	% 1)
 	\item In the second-price auction, bidders have valuations $ v_i $ and submit bids $ b_i $. In this setup, the strategy of bidding one's valuation, $ b_i^* = v_i $, weakly dominates all other strategies.
 	
 	\begin{proof}
+		Following the notation in Fudenberg and Tirole, let $ r_i = \max_{j\neq i} s_j $ denote the highest bid competing with $ s_i $. Generally speaking, player i has three strategies: $ s_i = v_i $, $ s_i < v_i $, and $ s_i > v_i $. 
 		
+		First, consider the strategy $ s_i > v_i $. If $ r_i > s_i > v_i $, then player $ i $ loses and gains utility 0, which is equivalent to what he would gain by bidding $ s_i = v_i $. Similarly, if $ r_i = s_i > v_i $, then they player wins with probability $ 1/2 $, in which case he gains utility $ v_i - r_i < 0 $, and loses with probability $ 1/2 $, and thus his expected utility is negative, leaving him worse off than if he had bid $ s_i = v_i $. If $ r_i \leq v_i < s_i $, then player $ i $ wins, but gains utility $ v_i - r_i > 0 $, which is exactly the benefit to playing $ s_i = v_i $. Lastly, if $ v_i < r_i < s_i $, then the player wins, but gains $ v_i - r_i < 0 $, and thus this strategy is dominated by bidding $ s_i = v_i $.
+		
+		Now, consider the strategy $ s_i < v_i $. If $ s_i < v_i \leq r_i $, then player $ i $ loses and gains utility 0, which he would have gained if he had bid $ s_i = v_i $. If $ s_i < r_i \leq v_i $, then player $ i $ loses and gains nothing, and thus would have been better off bidding $ s_i = v_i $, a strategy which would have positive expected utility. Lastly, if $ r_i \leq s_i < v_i $, then player $ i $ wins and gains $ v_i - r_i $, which is equivalent to the benefit to bidding $ s_i = v_i $.
+		
+		Thus, both strategies $ s_i < v_i $ and $ s_i > v_i $ are weakly dominated by strategy $ s_i = v_i $. 
 	\end{proof} 
+
+	% 2)
+	\item In the travelers' dilemma, players $ i\in \{1,2\} $ submit claims $ c_i $, with $ c_i $ an integer such that $ 180 \leq c_i \leq 300 $. 
+	\begin{enumerate}
+		\item The process of elimination of weakly dominated strategies can be defined as follows. The initial set of strategies is given by 
+		\[S_i^0 = \{180, 181, \dots, 300 \} \]
+	\end{enumerate}
 \end{enumerate}
 
 \end{document}
