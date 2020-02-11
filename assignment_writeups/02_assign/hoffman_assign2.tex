@@ -7,6 +7,7 @@
 \usepackage{graphicx}
 \usepackage{indentfirst}
 \usepackage{caption}
+\usepackage{subcaption}
 \usepackage{lscape}
 \usepackage{multirow}
 \usepackage{array}
@@ -129,11 +130,25 @@
 		\end{tabular}
 	\end{table}
 	\begin{enumerate}
-		\item The set of feasible payoffs is shown in Figure:
+		\item The set of feasible payoffs is shown in Figure (\ref{q4_feas}): 
+		
+		\begin{figure}[h]
+			\centering
+			\caption{}
+			\includegraphics[scale = 0.7]{q4_feas.png}
+			\label{q4_feas}
+		\end{figure}
 		
 		\item The payoffs in this game are symmetric, and thus the minmax payoff for player $ i $ is given by 
 		\[\underline{v}_i = \min_{\alpha, \beta} (\max\{3\alpha + 2\beta + 1, \beta - \alpha - 1, 0\})\]
-		The minmax is achieved when $ \alpha = \beta = 0 $, and thus the players' minmax values are $ \underline{v}_1 = \underline{v}_2 = 1 $. The set of feasible and individually rational payoffs is shown in Figure: 
+		The minmax is achieved when $ \alpha = \beta = 0 $, and thus the players' minmax values are $ \underline{v}_1 = \underline{v}_2 = 1 $. The set of feasible and individually rational payoffs is shown in Figure (\ref{q4_feas_ir}): 
+		\newpage
+		\begin{figure}[h]
+			\centering
+			\caption{}
+			\includegraphics[scale = 0.7]{q4_feas_ir.png}
+			\label{q4_feas_ir}
+		\end{figure}
 		
 		\item The SPE strategy that sustains payoffs (2,2) for sufficiently high $\delta$ has three stages:
 		\begin{itemize}
@@ -141,7 +156,7 @@
 			\item [II$ ^j $] (punishment): If player $ j $ deviates, player $ i\neq j $ punishes him by minmaxing him for $ T > 1 $ periods. If there are no further deviations within the $ T $ periods, move to phase III$ ^j $
 			\item [III$ ^j $] (reward): The players play strategies leading to payoffs $ (\omega, \omega + \varepsilon) $ forever. If player $ k $ deviates, move back to phase II$ ^k $.
 		\end{itemize}
-		A few more parameters need to be defined before verifying that this strategy is a SPE:
+		A few parameters need to be defined before verifying that this strategy is a SPE:
 		
 		\begin{table*}[!ht]
 			\centering
@@ -151,10 +166,45 @@
 				$ v_1 = v_2 = 2 $ & sustained payoffs\\
 				$ u_2(m^1) = u_1(m_2) = 0 $ & value to minmaxing other player \\
 				$ \omega_1 = \omega_2 = 1.5 $ & common payoff in reward phase\\
-				$ \varepsilon = 0.25 $ & reward \\
+				$ \varepsilon = 0.25 $ & reward to punishing player \\
 			\end{tabular}
 		\end{table*}
-		The strategy profile in the reward phase is as follows: 
+		The strategy profile in the reward phase is as follows: if player $ i $ deviated, then player $ i $ plays $ B $ with probability $ 3/4 $, and $ C $ with probability $ 1/4 $. Player $ j\neq i $ plays $ B $ with probability 1. This leads to payoffs $ \omega = 1.5 $, and $ \omega + \varepsilon = 1.75 $.\footnote{Note that any $ \omega,\varepsilon $ pair could have been selected such that $ \underline{v}_i < \omega_i < v_i $ and $ \underline{v}_i < \omega_i + \varepsilon < v_i $. I selected the strategy above in order to fully specify the strategies that make up the SPE profile.}
+		
+		For simplicity, I normalize each players minmax payoff to 0, and normalize all other payoffs relative to $ \underline{v}_i $. Thus, in the following proof, $ \underline{v}_1 = \underline{v}_2 = 0 $, $ v_1 = v_2 = 1 $, $ u_2(m^1) = u_1(m_2) = -1 $, and $ \omega_1 = \omega_2 = 0.5 $. 
+		
+	\end{enumerate}
+	
+	\item The payoffs in this game are as follows: 
+	\begin{table}[!htbp]
+		\centering
+		\setlength{\extrarowheight}{2pt}
+		\begin{tabular}{cc|c|c|}
+			& \multicolumn{1}{c}{} & \multicolumn{1}{c}{$L$}  & \multicolumn{1}{c}{$R$} \\\cline{3-4}
+			& $T$ & $ 5,1 $ & $ 0,0 $ \\\cline{3-4}
+			& $B$ & $ 4,4 $ & $ 1,5 $ \\\cline{3-4}
+		\end{tabular}
+	\end{table}
+	\begin{enumerate}
+		\item For either player, the minmax value $ \underline{v}_i $ is given by
+		\[\underline{v}_i = \min_\alpha\big(\max\{5\alpha, 3\alpha + 1\}\big) = 1\]
+		with $\alpha = 0$. Thus, the set of feasible payoffs is shown in Figure (\ref{fig2_a}), and the set of feasible and individually rational payoffs in Figure (\ref{fig2_b}):
+		\begin{figure}[!hbtp]
+			\caption{}
+			\begin{subfigure}{.5\textwidth}
+				\centering
+				\includegraphics[width=.8\linewidth]{q5_feas.png}
+				\caption{Feasible}
+				\label{fig2_a}
+			\end{subfigure}%
+			\begin{subfigure}{.5\textwidth}
+				\centering
+				\includegraphics[width=.8\linewidth]{q5_feas_ir.png}
+				\caption{Feasible and Individually Rational}
+				\label{fig2_b}
+			\end{subfigure}
+			\label{fig2}
+		\end{figure}
 		
 	\end{enumerate}
 \end{enumerate}
