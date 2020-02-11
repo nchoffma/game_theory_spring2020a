@@ -131,7 +131,31 @@
 	\begin{enumerate}
 		\item The set of feasible payoffs is shown in Figure:
 		
-		\item The set of feasible and individually rational payoffs is shown in Figure:
+		\item The payoffs in this game are symmetric, and thus the minmax payoff for player $ i $ is given by 
+		\[\underline{v}_i = \min_{\alpha, \beta} (\max\{3\alpha + 2\beta + 1, \beta - \alpha - 1, 0\})\]
+		The minmax is achieved when $ \alpha = \beta = 0 $, and thus the players' minmax values are $ \underline{v}_1 = \underline{v}_2 = 1 $. The set of feasible and individually rational payoffs is shown in Figure: 
+		
+		\item The SPE strategy that sustains payoffs (2,2) for sufficiently high $\delta$ has three stages:
+		\begin{itemize}
+			\item [I] (cooperation): Both players play $ (B,B) $
+			\item [II$ ^j $] (punishment): If player $ j $ deviates, player $ i\neq j $ punishes him by minmaxing him for $ T > 1 $ periods. If there are no further deviations within the $ T $ periods, move to phase III$ ^j $
+			\item [III$ ^j $] (reward): The players play strategies leading to payoffs $ (\omega, \omega + \varepsilon) $ forever. If player $ k $ deviates, move back to phase II$ ^k $.
+		\end{itemize}
+		A few more parameters need to be defined before verifying that this strategy is a SPE:
+		
+		\begin{table*}[!ht]
+			\centering
+			\begin{tabular}{r|l} 
+				Parameter & Explanation \\ \hline 
+				$ \underline{v}_1 = \underline{v}_2 = 1 $ & minmax values\\
+				$ v_1 = v_2 = 2 $ & sustained payoffs\\
+				$ u_2(m^1) = u_1(m_2) = 0 $ & value to minmaxing other player \\
+				$ \omega_1 = \omega_2 = 1.5 $ & common payoff in reward phase\\
+				$ \varepsilon = 0.25 $ & reward \\
+			\end{tabular}
+		\end{table*}
+		The strategy profile in the reward phase is as follows: 
+		
 	\end{enumerate}
 \end{enumerate}
 
