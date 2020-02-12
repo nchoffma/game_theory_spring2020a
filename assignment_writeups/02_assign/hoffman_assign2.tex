@@ -135,7 +135,7 @@
 		\begin{figure}[h]
 			\centering
 			\caption{}
-			\includegraphics[scale = 0.7]{q4_feas.png}
+			\includegraphics[scale = 0.1]{q4_feas.png}
 			\label{q4_feas}
 		\end{figure}
 		
@@ -146,14 +146,14 @@
 		\begin{figure}[h]
 			\centering
 			\caption{}
-			\includegraphics[scale = 0.7]{q4_feas_ir.png}
+			\includegraphics[scale = 0.1]{q4_feas_ir.png}
 			\label{q4_feas_ir}
 		\end{figure}
 		
 		\item The SPE strategy that sustains payoffs (2,2) for sufficiently high $\delta$ has three stages:
 		\begin{itemize}
 			\item [I] (cooperation): Both players play $ (B,B) $
-			\item [II$ ^j $] (punishment): If player $ j $ deviates, player $ i\neq j $ punishes him by minmaxing him for $ T > 1 $ periods. If there are no further deviations within the $ T $ periods, move to phase III$ ^j $
+			\item [II$ ^j $] (punishment): If player $ j $ deviates, player $ i\neq j $ punishes him by minmaxing him for $ T > 1 $ periods. If there are no further deviations within the $ T $ periods, move to phase III$ ^j $. Since $ T $ can be freely set, we set it such that $ (1 - \delta^{T + 1}) > (1 - \delta)\bar{v}_i $ for all $ i $, where $ \bar{v}_i $ is the reward that the player gets by deviating. 
 			\item [III$ ^j $] (reward): The players play strategies leading to payoffs $ (\omega, \omega + \varepsilon) $ forever. If player $ k $ deviates, move back to phase II$ ^k $.
 		\end{itemize}
 		A few parameters need to be defined before verifying that this strategy is a SPE:
@@ -164,15 +164,77 @@
 				Parameter & Explanation \\ \hline 
 				$ \underline{v}_1 = \underline{v}_2 = 1 $ & minmax values\\
 				$ v_1 = v_2 = 2 $ & sustained payoffs\\
-				$ u_2(m^1) = u_1(m_2) = 0 $ & value to minmaxing other player \\
+				$ u_2(m^1) = u_1(m^2) = 0 $ & value to minmaxing other player \\
+				$ \bar{v}_1 = \bar{v}_2 = 3.75 $ & value to deviating \\
 				$ \omega_1 = \omega_2 = 1.5 $ & common payoff in reward phase\\
 				$ \varepsilon = 0.25 $ & reward to punishing player \\
 			\end{tabular}
 		\end{table*}
 		The strategy profile in the reward phase is as follows: if player $ i $ deviated, then player $ i $ plays $ B $ with probability $ 3/4 $, and $ C $ with probability $ 1/4 $. Player $ j\neq i $ plays $ B $ with probability 1. This leads to payoffs $ \omega = 1.5 $, and $ \omega + \varepsilon = 1.75 $.\footnote{Note that any $ \omega,\varepsilon $ pair could have been selected such that $ \underline{v}_i < \omega_i < v_i $ and $ \underline{v}_i < \omega_i + \varepsilon < v_i $. I selected the strategy above in order to fully specify the strategies that make up the SPE profile.}
 		
-		For simplicity, I normalize each players minmax payoff to 0, and normalize all other payoffs relative to $ \underline{v}_i $. Thus, in the following proof, $ \underline{v}_1 = \underline{v}_2 = 0 $, $ v_1 = v_2 = 1 $, $ u_2(m^1) = u_1(m_2) = -1 $, and $ \omega_1 = \omega_2 = 0.5 $. 
+		For simplicity, I normalize each players minmax payoff to 0, and normalize all other payoffs relative to $ \underline{v}_i $. Thus, in the following proof, $ \underline{v}_1 = \underline{v}_2 = 0 $, $ v_1 = v_2 = 1 $, $ u_2(m^1) = u_1(m^2) = -1 $, $ \bar{v}_1 = \bar{v}_2 = 2.25 $\footnote{These values are on the boundary of the set of feasible and individually rational payoffs, found by finding the point on the boundary corresponding to $ v_i = 2$.} and $ \omega_1 = \omega_2 = 0.5 $. 
 		
+		To verify that this strategy profile is a subgame-perfect equilibrium, I use the one-shot deviation principle. Here, I assume that payoffs are given by $ (1 - \delta)\sum_{t = 0}^{\infty}\delta^t u_i(a_it) $. There are five cases: \newpage 
+		\begin{enumerate}[label = \roman{*})]
+			\item Player $ i $ in phase I: 
+			\begin{table}[!h]
+				\centering
+				\begin{tabular}{c|c}
+					Conform & Deviate \\ \hline
+					$ v_i = 1 $ & $ (1 - \delta)2.75 + \delta^{T+1}(0.5) $
+				\end{tabular}
+			\end{table}
+		
+			As $ \delta\to 1 $, the $ (1 - \delta)2.75 $ term drops out, and we are left with $ \delta^{T+1}(0.5) $, which is clearly less than 1. Thus, the player is better off conforming. 
+			
+			\item Player $ i $ in phase II$ ^j $, $ i \neq j $, $ T^\prime $ periods remaining in punishment period: 
+			\begin{table}[!h]
+				\centering
+				\begin{tabular}{c|c}
+					Conform & Deviate \\ \hline
+					$ -(1 - \delta^{T^\prime - 1}) + \delta^{T^\prime}(0.75) $ & $ (1 - \delta)2.75 + \delta^{T+1}(0.5) $
+				\end{tabular}
+			\end{table}
+			
+			As $ \delta\to 1 $, the first term in each sum drops out, and the relevant comparison is $ \delta^{T^\prime}(0.75) > \delta^{T+1}(0.5)$, as $ T^\prime < T+1 $. Thus, player $ i $ is better off conforming.
+			
+			\item Player $ i $ in phase II$ ^j $, $ i = j $, $ T^\prime $ periods remaining in punishment period:
+			\begin{table}[!h]
+				\centering
+				\begin{tabular}{c|c}
+					Conform & Deviate \\ \hline
+					$ \delta^{T^\prime} (0.5) $ & $ \delta^{T+1}(0.5) $
+				\end{tabular}
+			\end{table}
+		
+			$ \delta^{T^\prime} > \delta^{T+1}$, and thus player $ i $ is again better off conforming to the equilibrium strategy. Here, because he is being minmaxed, player $ i $ cannot improve his payoff by deviating. 
+			
+			\item Player $ i $ in phase III$ ^j $, $ i\neq j $ (player $ i $ is being rewarded):
+			\begin{table}[!h]
+				\centering
+				\begin{tabular}{c|c}
+					Conform & Deviate \\ \hline
+					$ 0.75 $ & $ (1 - \delta)2.75 + \delta^{T+1}(0.5) $
+				\end{tabular}
+			\end{table}
+			
+			Again, the immediate reward for deviating vanishes as $ \delta\to 1 $, and thus the relevant comparison is that $ 0.75 > \delta^{T+1}(0.5) $, and thus player $ i $ is once again better off conforming.
+			
+			\item Player $ i $ in phase III$ ^j $, $ i = j $:
+			\begin{table}[!h]
+				\centering
+				\begin{tabular}{c|c}
+					Conform & Deviate \\ \hline
+					$ 0.5 $ & $ (1 - \delta)2.75 + \delta^{T+1}(0.5) $
+				\end{tabular}
+			\end{table}
+		
+		Here, note that
+		\[0.5 = 0.5(1 - \delta^{T+1}) + 0.5\delta^{T+1} > (1 - \delta)2.75 + \delta^{T+1}(0.5) \]
+		As $ T $ was selected such that $ (1 - \delta^{T + 1}) > (1 - \delta)\bar{v}_i $. 
+			
+		\end{enumerate}
+		Thus, by the one-shot deviation principle, the strategy outlined above is a subgame perfect equilibrium. 
 	\end{enumerate}
 	
 	\item The payoffs in this game are as follows: 
@@ -185,6 +247,7 @@
 			& $B$ & $ 4,4 $ & $ 1,5 $ \\\cline{3-4}
 		\end{tabular}
 	\end{table}
+
 	\begin{enumerate}
 		\item For either player, the minmax value $ \underline{v}_i $ is given by
 		\[\underline{v}_i = \min_\alpha\big(\max\{5\alpha, 3\alpha + 1\}\big) = 1\]
@@ -206,7 +269,62 @@
 			\label{fig2}
 		\end{figure}
 		
-	\end{enumerate}
+		\item This game has no Nash Equilibrium in pure strategies. There is one Nash Equilibrium in mixed strategies:
+		\begin{gather*}
+		\text{Player 1: } \frac{1}{2}T \oplus \frac{1}{2}B \\
+		\text{Player 2: } \frac{1}{2}L \oplus \frac{1}{2}R
+		\end{gather*}
+		The payoffs resulting from this strategy are (2.5,2.5). 
+		
+		\item The highest symmetric payoff that can be sustained in a two-period version of this game, with $ \delta = 1 $, is (5, 5). The equilibrium for this game can be found using backwards induction: there are four nodes at the second stage of the extensive-form version of this game, each corresponding to a possible outcome of the first. However, the subgame at each of these nodes is an identical copy of the first, and thus has the same Nash Equilibrium in mixed strategies. Thus, the payoff at each node will be $ (2.5, 2.5) $. Thus, replacing the subgame at each node with its payoff reduces the game to a single-shot game, with payoff matrix
+		
+		\begin{table}[!htbp]
+			\centering
+			\setlength{\extrarowheight}{2pt}
+			\begin{tabular}{cc|c|c|}
+				& \multicolumn{1}{c}{} & \multicolumn{1}{c}{$L$}  & \multicolumn{1}{c}{$R$} \\\cline{3-4}
+				& $T$ & $ 7.5,3.5 $ & $ 2.5,2.5 $ \\\cline{3-4}
+				& $B$ & $ 6.5,6.5 $ & $ 3.5,7.5 $ \\\cline{3-4}
+			\end{tabular}
+		\end{table}
+		Because the payoffs in this game are monotone transformations of the payoffs in the original game, the Nash Equilibrium strategy profiles are the same, and the expected payoff is (5,5). 
+		
+		\item Generalizing the argument in part (3) to $ T\geq 2  $ periods, the expected payoff at each node will be $ (2.5, 2.5) $, and thus the maximum sustainable payoff will be $ (2.5 T, 2.5 T) $. Note that no strategy of cooperation will be sustainable: with a finite number of periods, each player has an incentive to deviate earlier than the other, and thus both will deviate from any cooperative strategy in the first period (and all successive periods). 
+		
+		\item With $ T = \infty $, there will be a strategy profile that can sustain cooperation for sufficiently high $ \delta $. This profile is a Grim-Trigger strategy:
+		\begin{itemize}
+			\item $ T = 0 $: $ P_1 $ plays $ B $, $ P_2 $ plays $ L $. 
+			\item $ T\geq 1 $: If $ (B,L) $ played in all previous periods, then $ P_1 $ plays $ B $, $ P_2 $ plays $ L $. Otherwise, the players revert to the noncooperative Nash Equilibrium strategy profile in part (2). 
+		\end{itemize}
+	
+		Assuming that payoffs in the infinitely-repeated game take the form $ \sum_{t = 0}^\infty \delta^t u_i(a_{i,t}) $, then this strategy is a subgame-perfect equilibrium for sufficiently high $\delta$. There are two cases:
+		\begin{enumerate}[label = \roman{*})]
+			\item $ (B, L) $ played in all previous periods (cooperative). Player $ i $'s strategy:
+			\begin{table}[!h]
+				\centering
+				\begin{tabular}{c|c}
+					Conform & Deviate \\ \hline
+					$ \frac{4}{1 - \delta} $ & $ 5 + \delta \cdot \frac{5}{2} \left(\frac{1}{1 - \delta}\right) $
+				\end{tabular}
+			\end{table}
+			In order to player $ i $ to conform, it must be the case that
+			\[ \frac{4}{1 - \delta} > 5 + \delta \cdot \frac{5}{2} \left(\frac{1}{1 - \delta}\right) \implies \delta > \frac{2}{5}\]
+			
+		
+			\item Player $ i $'s strategy if $ (B,L) $ \emph{not} played in all prior periods:
+			\begin{table}[!h]
+				\centering
+				\begin{tabular}{c|c}
+					Conform & Deviate \\ \hline
+					$ \frac{5}{2}\cdot\frac{1}{1 - \delta} $ & $ p\frac{1}{1 - \delta} $
+				\end{tabular}
+			\end{table}
+		
+		where $ p < 5/2 $. The noncooperative strategy is the Nash Equilibrium profile, and thus by definition, if player $ -i $ is playing the equilibrium strategy, player $ i $ cannot improve his payoff by deviating, and thus is better off conforming.
+		\end{enumerate}
+		
+		Thus, by the one-shot deviation principle, this strategy is a subgame perfect equilibrium that sustains payoffs (4,4) if $ \delta > 2/5 $
+		\end{enumerate}
 \end{enumerate}
 
 \end{document}
