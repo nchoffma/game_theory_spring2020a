@@ -1,0 +1,104 @@
+\documentclass[11pt]{article}
+\usepackage[margin = 1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm} % for proof environment
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{indentfirst}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{lscape}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{tikz}
+\usetikzlibrary{calc} % for positioning tikz nodes
+
+\renewcommand{\labelenumii}{\arabic*)}
+\newcommand{\ev}{\mathbb{E}}
+\newcommand{\inv}[1]{#1^{-1}}
+
+\tikzset{%
+	hollow/.style = {circle,draw,inner sep=1.5},
+	solid/.style = {circle,draw,inner sep=1.5,fill=black}%
+}
+
+
+\begin{document}
+
+\begin{flushleft}
+	Nick Hoffman \\
+	Game Theory, Spring 2020 A \\
+	Assignment 3 \\
+\end{flushleft}
+
+\begin{enumerate}
+	\item In the potential sale of $ B $ to $ A $, I first consider the strategy for firm $ B $. Firm $ B $ knows its value $ x $, and sets a minimum price $ m $, and the sale is completed if firm $ A $'s offer $ y $ is greater than or equal to $ m $. Because firm $ B $ receives a value of $ x $ if the sale is not completed, it is easy to see that their equilibrium strategy is to set $ m = x $. If firm $ B $ sets $ m < x $, then if firm $ A $ makes an offer such that $ m < y < x $, then the sale would be completed, but $ B $ would have been better off setting a higher $ m $ and receiving $ x $. Conversely, if $ B $ sets $ m > x $, then the sale would fail if firm $ A $ made an offer such that $ m > y > x $, but firm $ B $ would have been better off had the sale gone through. Thus, $ m = x $.
+	
+	Firm $ A $, then, aims to choose $ y $ to maximize its expected profit, knowing that $ m = x $ and $ x\sim \mathcal{U}[0,100] $. Firm $ A $'s payoff, knowing these pieces of information, is given by 
+	\[u_A(y|x) = \begin{cases}
+	\frac{3}{2}x - y & x \leq y \\
+	0 & x > y
+	\end{cases}\]
+	Thus, their expected utility is given by 
+	\begin{align*}
+	\ev[u_A|x] &= \left(\frac{3}{2}x - y\right)\cdot\Pr(x \leq y) \\
+	 &= \left(\frac{3}{2}x - y\right)\frac{y}{100} 
+	\end{align*}
+	The total expected payoff to firm $ A $ is given by 
+	\[\int_{0}^{y}\left(\frac{3}{2}x - y\right) dx = \frac{3}{4}x^2 - xy \Biggr|_0^y = -\frac{y^2}{4}\]
+	Differentiating the expected payoff with respect to $ y $ and setting equal to 0 yields
+	\[-\frac{1}{2}y = 0 \implies y = 0 \]
+	Thus, the optimal strategy for firm $ A $, given that firm $ B $ plays their equilibrium strategy of $ m = x $, is to bid $ y = 0 $. This seemingly counterintuitive result is a consequence of the payout structure, and the distribution of $ x $. 
+	
+	\item In the two-bidder mixed auction where each player $ i\in\{1,2\} $, the winner pays $ \alpha b_i + (1 - \alpha)b_{j} $, $ j\neq i $. Players' valuations $ v_1 $ and $ v_2 $ are both distributed $ \mathcal{U}[0,1] $. In general, expected utility for player $ i $ is given by 
+	\[U_i(v_i, b_i, b_j) = \Pr(b_i > b_j) \cdot (v_i - \alpha b_i - (1 - \alpha) b_j ) + \frac{1}{2}\Pr(b_i = b_j)\cdot (v_i - \alpha b_i - (1 - \alpha) b_j )\]
+	Because the distributions of the valuations are continuous, $ \Pr(b_i = b_j) = 0 $, and thus we can restrict attention to the first term in the sum. Assume that a symmetric bidding strategy exists, such that 
+	\[b_i = \beta(v_i)\]
+	with $ \beta(v_i) $ monotone increasing in $ v_i $. To begin, note that because $ \beta $ is monotone, $ \inv{\beta} $ exists. Then, 
+	\begin{align*}
+	\Pr(b_i > b_j) &= \Pr(b_i > \beta(v_j)) \\ &= \Pr(\inv{\beta}(b_i) > v_j) \\ &= F(\inv{\beta}(b_i))
+	\end{align*}
+	Where $ F $ is the uniform CDF. Thus, player $ i $'s problem is
+	\[\max_{b_i} F(\inv{\beta}(b_i))(v_i - \alpha b_i - (1 - \alpha)b_j)\]
+	The first-order condition is 
+	\[\frac{f(\inv{\beta}(b_i))}{\beta^\prime (\inv{\beta}(b_i))} \big(v_i - \alpha b_i - (1  - \alpha)b_j\big) - \alpha F(\inv{\beta}(b_i)) = 0 \]
+	Rewriting, this becomes
+	\[\beta^\prime (v_i) F(v_i) + f(v_i)\beta(v_i) = \frac{f(v_i) v_i - (1 - \alpha)f(v_i \beta(v_j))}{\alpha} \]
+	and thus
+	\[\frac{d}{d v_i} \beta(v_i)F(v_i) = \frac{f(v_i) v_i - (1 - \alpha)f(v_i \beta(v_j))}{\alpha} \]
+	Integrating yields 
+	\[\beta(v_i) = \frac{1}{\alpha F(v_i)} \int_{0}^{v_i}f(x)x dx - \frac{1 - \alpha}{\alpha}\beta(v_j)\int_{0}^{v_i}f(x) dx + C\]
+	Because bidding any amount greater than 0 if $ v_i = 0 $ is a dominated strategy, it must be that $ C = 0 $. Substituting this into above, we can integrate and, using the fact that $ F(x) = x $, recover
+	\[\beta(v_i) = v_i \left(\frac{1}{2\alpha} - \frac{1 - \alpha}{\alpha}\beta(v_j)\right)\]
+	The above holds for $ i,j\in\{1,2\} $, and for all $ v_i, v_j\in[0,1] $. Thus, it must hold for the case when $ v_i = v_j = v $. In this case, 
+	\begin{align*}
+	\beta(v) &= v \left(\frac{1}{2\alpha} - \frac{1 - \alpha}{\alpha}\beta(v)\right) \\
+	&= \frac{v}{2(\alpha + (1 - \alpha) v)}
+	\end{align*}
+	Thus, $ \beta(v_i) = 0 $ when $ v_i = 0 $, and $ \beta $ increases monotonically in $ v_i $, as 
+	\[\beta^\prime (v_i) = 2\alpha + (1 - \alpha)v\]
+	Thus, this symmetric equilibrium has the desired properties. 
+	
+	\item 
+	\item In this case of bilateral trade, the buyer offers $ p_b $, while the seller posts $ p_s $. If $ p_s \leq p_b $, then the item sells for price $ p = \frac{1}{2}(p_s + p_b) $. Assume that both players play a linear equilibrium strategy, that is,
+	\[p_i = \alpha_i + \beta_i v_i\]
+	for $ i\in\{b, s\} $. In order to calculate the exact equilibrium strategy, I first formulate the best response for the buyer and the seller.
+	
+	The buyer's payoff is $ v_b - \frac{1}{2(p_s + p_b)} $ if $ p_s \leq p_b $, and 0 otherwise. Assuming that the seller follows $ p_s = \alpha_s + \beta_s v_s $, 
+	
+	\[\Pr(p_s \leq p_b) = F\left(\frac{p_b - \alpha_s}{\beta_s}\right)\]
+	
+	where $ F $ is the uniform CDF on [0,1]. Thus, the seller's expected utility is given by 
+	\begin{align*}
+	\ev[u_b] &= \int_0^{\frac{p_b - \alpha_s}{\beta_s}} \left(v_b - \frac{1}{2}(p_s + p_b)\right) dv_s\\
+	&= \int_0^{\frac{p_b - \alpha_s}{\beta_s}} \left(v_b - \frac{1}{2} (p_b + \alpha_s + \beta_s v_s)\right)dv_s
+	\end{align*}
+	To optimize, using Liebniz's rule, I compute
+	\[\frac{\partial}{\partial p_b} \int_0^{\frac{p_b - \alpha_s}{\beta_s}} \left(v_b - \frac{1}{2} (p_b + \alpha_s + \beta_s v_s)\right)dv_s \]
+	and set the result equal to 0 to obtain  
+	\[p_b = \frac{2}{3}v_b + \frac{\alpha_s}{3}\]
+	
+\end{enumerate}
+
+\end{document}
