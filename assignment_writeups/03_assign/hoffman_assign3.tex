@@ -13,6 +13,7 @@
 \usepackage{array}
 \usepackage{tikz}
 \usetikzlibrary{calc} % for positioning tikz nodes
+\usepackage[round]{natbib}
 
 \renewcommand{\labelenumii}{\arabic*)}
 \newcommand{\ev}{\mathbb{E}}
@@ -57,48 +58,148 @@
 	\[b_i = \beta(v_i)\]
 	with $ \beta(v_i) $ monotone increasing in $ v_i $. To begin, note that because $ \beta $ is monotone, $ \inv{\beta} $ exists. Then, 
 	\begin{align*}
-	\Pr(b_i > b_j) &= \Pr(b_i > \beta(v_j)) \\ &= \Pr(\inv{\beta}(b_i) > v_j) \\ &= F(\inv{\beta}(b_i))
+	\Pr(b_i > b_j) &= \Pr(b_i > \beta(v_j)) \\ &= \Pr(\inv{\beta}(b_i) > v_j) \\ &= F(\inv{\beta}(b_i)) \\
+	&= \inv{\beta}(b_i)
 	\end{align*}
-	Where $ F $ is the uniform CDF. Thus, player $ i $'s problem is
-	\[\max_{b_i} F(\inv{\beta}(b_i))(v_i - \alpha b_i - (1 - \alpha)b_j)\]
-	The first-order condition is 
-	\[\frac{f(\inv{\beta}(b_i))}{\beta^\prime (\inv{\beta}(b_i))} \big(v_i - \alpha b_i - (1  - \alpha)b_j\big) - \alpha F(\inv{\beta}(b_i)) = 0 \]
-	Rewriting, this becomes
-	\[\beta^\prime (v_i) F(v_i) + f(v_i)\beta(v_i) = \frac{f(v_i) v_i - (1 - \alpha)f(v_i \beta(v_j))}{\alpha} \]
-	and thus
-	\[\frac{d}{d v_i} \beta(v_i)F(v_i) = \frac{f(v_i) v_i - (1 - \alpha)f(v_i \beta(v_j))}{\alpha} \]
-	Integrating yields 
-	\[\beta(v_i) = \frac{1}{\alpha F(v_i)} \int_{0}^{v_i}f(x)x dx - \frac{1 - \alpha}{\alpha}\beta(v_j)\int_{0}^{v_i}f(x) dx + C\]
-	Because bidding any amount greater than 0 if $ v_i = 0 $ is a dominated strategy, it must be that $ C = 0 $. Substituting this into above, we can integrate and, using the fact that $ F(x) = x $, recover
-	\[\beta(v_i) = v_i \left(\frac{1}{2\alpha} - \frac{1 - \alpha}{\alpha}\beta(v_j)\right)\]
-	The above holds for $ i,j\in\{1,2\} $, and for all $ v_i, v_j\in[0,1] $. Thus, it must hold for the case when $ v_i = v_j = v $. In this case, 
-	\begin{align*}
-	\beta(v) &= v \left(\frac{1}{2\alpha} - \frac{1 - \alpha}{\alpha}\beta(v)\right) \\
-	&= \frac{v}{2(\alpha + (1 - \alpha) v)}
-	\end{align*}
-	Thus, $ \beta(v_i) = 0 $ when $ v_i = 0 $, and $ \beta $ increases monotonically in $ v_i $, as 
-	\[\beta^\prime (v_i) = 2\alpha + (1 - \alpha)v\]
-	Thus, this symmetric equilibrium has the desired properties. 
+	 As $ F $ is the uniform CDF on [0,1]. Thus, the expected payoff to player $ i $ is given by 
+	 \[\int_{0}^{\inv{\beta}(b_i)} \big(v_i - \alpha b_i - (1 - \alpha) \beta(v_j) \big)dv_j \]
+	 To optimize, I use Liebnitz's rule to compute 
+	 \[\frac{\partial }{\partial b_i} \int_{0}^{\inv{\beta}(b_i)} \big(v_i - \alpha b_i - (1 - \alpha) \beta(v_j) \big)dv_j = \frac{v_i - b_i}{\beta^\prime(v_i)} - \alpha v_i  = 0\]
+	The final equality can be transformed to an Ordinary differential equation of the form
+	\[\beta^\prime(v_i) + \frac{1}{\alpha v_i} \beta(v_i) = \frac{1}{\alpha}\]
+	The integrating factor is $  $
+	\[\exp\left(\int \frac{1}{\alpha v_i} dv_i\right) = v_i^{\frac{1}{\alpha}}\]
+	Multiplying both sides by the integrating factor, and noticing the product rule implicit in this form, gives 
+	\[\frac{d}{d v_i}\beta(v_i)v_i^{\frac{1}{\alpha}} =  \frac{v_i^{\frac{1}{\alpha}}}{\alpha} \]
+	Integrating both sides gives 
+	\[\beta (v_i) = \frac{v}{\alpha + 1}\]
+	This form implies that $ b_i = v_i $ if $\alpha = 0 $, and $ b_i = v_i/2 $ when $ \alpha = 1 $, which are the forms that we know for first and second-price auctions. Furthermore, this form shows that $ \beta (0) = 0 $, and $ \beta $ is increasing in $ v $, which were the properties that we desired.  
 	
 	\item 
-	\item In this case of bilateral trade, the buyer offers $ p_b $, while the seller posts $ p_s $. If $ p_s \leq p_b $, then the item sells for price $ p = \frac{1}{2}(p_s + p_b) $. Assume that both players play a linear equilibrium strategy, that is,
-	\[p_i = \alpha_i + \beta_i v_i\]
-	for $ i\in\{b, s\} $. In order to calculate the exact equilibrium strategy, I first formulate the best response for the buyer and the seller.
+	\begin{enumerate}
+		\item The game of incomplete information has the following form:
+		\begin{itemize}
+			\item Players $ i\in\{1,2\} $
+			\item Types: $ \theta_1 $ fixed; player 1 does not know which game he is playing. $ \theta_2 \in\{t_2^1, t_2^2\}$; player 2 knows which game they are playing. 
+			\item Beliefs: player one assigns equal $ 1/2 $ probability to $ t_2^1 $ and $ t_2^2 $. 
+			\item Strategies: $ s_1: \Theta_1 \to \{a_1, a_2, a_3\} $, $ s_2: \Theta_2\to\{b_1, b_2\} $
+			\item Payoffs given as follows: \newpage
+			\begin{table}[!htbp]
+				\centering
+				\caption{$ G_1 $}
+				\setlength{\extrarowheight}{2pt}
+				\begin{tabular}{cc|c|c|c|}
+					& \multicolumn{1}{c}{} & \multicolumn{1}{c}{$b_1$}  & \multicolumn{1}{c}{$b_2$}  \\\cline{3-4} 
+					& $a_1$ & $ 3,0 $ & $ 0,1 $ \\\cline{3-4}
+					& $a_2$ & $ 0,0 $ & $ 3,1 $ \\\cline{3-4}
+					& $a_3$ & $ 2,0 $ & $ 2,1 $ \\\cline{3-4}
+				\end{tabular}
+			\end{table}
+		
+			\begin{table}[!htbp]
+				\centering
+				\caption{$ G_2 $}
+				\setlength{\extrarowheight}{2pt}
+				\begin{tabular}{cc|c|c|c|}
+					& \multicolumn{1}{c}{} & \multicolumn{1}{c}{$b_1$}  & \multicolumn{1}{c}{$b_2$}  \\\cline{3-4} 
+					& $a_1$ & $ 3,0 $ & $ 0,1 $ \\\cline{3-4}
+					& $a_2$ & $ 0,1 $ & $ 3,0 $ \\\cline{3-4}
+					& $a_3$ & $ 2,2 $ & $ 2,0 $ \\\cline{3-4}
+				\end{tabular}
+			\end{table}
+		\end{itemize}
+		
+		In order to find the Bayesian Nash Equilibrium of this game, I note that player one chooses one strategy for both games, while player 2 chooses a strategy for $ G_1 $ and a strategy for $ G_2 $. Because each game occurs with probability $ 1/2 $, I combine them into one game as follows:
+		\begin{table}[!htbp]
+			\centering
+			\setlength{\extrarowheight}{2pt}
+			\begin{tabular}{cc|c|c|c|c|c|}
+				& \multicolumn{1}{c}{} & \multicolumn{1}{c}{$b_1 b_1$}  & \multicolumn{1}{c}{$b_1 b_2$}  & \multicolumn{1}{c}{$b_2 b_1$} & \multicolumn{1}{c}{$b_2 b_2$}\\\cline{3-6} 
+				& $a_1$ & $ 3,0 $ & $ \frac{3}{2}, \frac{1}{2} $ & $  \frac{3}{2}, \frac{1}{2} $ & $ 0,1 $ \\\cline{3-6}
+				& $a_2$ & $ 0,\frac{1}{2} $ & $ \frac{3}{2}, 0 $ & $ \frac{3}{2}, 1 $ & $ 3, \frac{1}{2} $ \\\cline{3-6}
+				& $a_3$ & $ 2,1 $ & $ 2,0 $ & $ 2, \frac{3}{2} $ & $ 2, \frac{1}{2} $ \\\cline{3-6}
+			\end{tabular}
+		\end{table}
 	
-	The buyer's payoff is $ v_b - \frac{1}{2(p_s + p_b)} $ if $ p_s \leq p_b $, and 0 otherwise. Assuming that the seller follows $ p_s = \alpha_s + \beta_s v_s $, 
+		The Bayesian Nash Equilibrium for this game is thus $ P_1: a_3 $, $ P_2: b_2 b_1 $. 
 	
-	\[\Pr(p_s \leq p_b) = F\left(\frac{p_b - \alpha_s}{\beta_s}\right)\]
-	
-	where $ F $ is the uniform CDF on [0,1]. Thus, the seller's expected utility is given by 
-	\begin{align*}
-	\ev[u_b] &= \int_0^{\frac{p_b - \alpha_s}{\beta_s}} \left(v_b - \frac{1}{2}(p_s + p_b)\right) dv_s\\
-	&= \int_0^{\frac{p_b - \alpha_s}{\beta_s}} \left(v_b - \frac{1}{2} (p_b + \alpha_s + \beta_s v_s)\right)dv_s
-	\end{align*}
-	To optimize, using Liebniz's rule, I compute
-	\[\frac{\partial}{\partial p_b} \int_0^{\frac{p_b - \alpha_s}{\beta_s}} \left(v_b - \frac{1}{2} (p_b + \alpha_s + \beta_s v_s)\right)dv_s \]
-	and set the result equal to 0 to obtain  
-	\[p_b = \frac{2}{3}v_b + \frac{\alpha_s}{3}\]
-	
+		\item Now, the payoffs are the same, but the types are slightly different. The game of incomplete information has the following form:
+		\begin{itemize}
+			\item Players $ i\in\{1,2\} $
+			\item Types: $ \theta_1\in\Theta_1 = \{t_1^1, t_1^2, t_1^3\} $. Type $ t_1^1 $ knows that the game is $ G_1 $, type $ t_1^2 $ knows that the game is $ G_2 $, and type $ t_1^3 $ does not know the game. For player 2, $ \theta_2\in\Theta_2 = \{t_2^1, t_2^2\} $ same as before.
+			\item Beliefs: Player 2 assigns equal $ 1/2 $ probability to whether player 1 knows the game or not. If player 1 does not know the game, he assigns equal $ 1/2  $ probability to each game. 
+		\end{itemize}
+		
+		The Bayesian Nash Equilibrium in pure strategies is defined as a set of strategies $ (s^*_i, s^*_{-i}) $ such that for all $ \theta $ and $ i $,
+		\[s^*_i(\theta_i) = \arg\max_{s_i^\prime}\sum_{\theta_{-i}}\Pr(\theta_{-i}| \theta_i)u_i(s_i^\prime, s^*_{-i}, \theta) \]
+		
+		To begin, there is one elimination that we can consider: $ s_2^*(t_2^1) = b_2 $, as $ b_1 $ is a dominated strategy for player $ 2 $ in game 1. Knowing this, we can compute the following:\footnote{here, let $ u(G_j) $ denote the payoffs in game $ j $. }
+		\begin{align*}
+		s_1^*(t_1^1) &= \arg\max_a \Pr(t_2^1 | t_1^1)\cdot u(G_1) + \Pr(t_2^2 | t_1^1)\cdot u(G_2) \\
+		&= \arg\max_a  u(G_1) + 0\cdot u(G_2) \\
+		&= a_2 \\
+		s_1^*(t_1^2) &= \arg\max_a \Pr(t_2^1 | t_1^2)\cdot u(G_1) + \Pr(t_2^2 | t_1^2)\cdot u(G_2) \\
+		&= \arg\max_a 0\cdot u(G_1) + u(G_2) \\
+		&= \emptyset\text{ as $ G_2 $ has no pure strategy Nash Equilibrium}
+		\end{align*}
+		To find the equilibrium strategies for the final two types, note that 
+		\begin{align*}
+		s_1^*(t_1^3) &= \arg\max_a \Pr(t_2^1 | t_1^3)u(G_1) + \Pr(t_2^2 | t_1^3)u(G_2) \\
+		&= \frac{1}{2}u(G_1) + \frac{1}{2}u(G_2)
+		\end{align*}
+		and
+		\begin{align*}
+		s_2^*(t_2^2) &= \arg\max_b \Pr(t_1^1 | t_2^2)u(G_1) + \Pr(t_1^1 | t_2^2)u(G_2) + \Pr(t_1^3|t_2^2)u(G_2) \\
+		&= u(G_2)
+		\end{align*}
+		Thus, in determining these optimal strategies, player 1 considers a mix of half of the payoffs from $ G_1 $ and half of the payoffs from $ G_2 $, while player 2 considers only the payoffs from $ G_2 $. Thus, the game is identical to $ G_2 $, and thus has no Nash Equilibrium in pure strategies, and so  $ s_1^*(t_1^3) $ and $ s_2^*(t_2^2) $ are empty. 
+	\end{enumerate}
+	\item 
+	\begin{enumerate}
+		\item In this case of bilateral trade, the buyer offers $ p_b $, while the seller posts $ p_s $. If $ p_s \leq p_b $, then the item sells for price $ p = \frac{1}{2}(p_s + p_b) $. Assume that both players play a linear equilibrium strategy, that is,
+		\[p_i = \alpha_i + \beta_i v_i\]
+		for $ i\in\{b, s\} $. In order to calculate the exact equilibrium strategy, I first formulate the best response for the buyer and the seller.
+		
+		The buyer's payoff is $ v_b - \frac{1}{2}(p_s + p_b) $ if $ p_s \leq p_b $, and 0 otherwise. Assuming that the seller follows $ p_s = \alpha_s + \beta_s v_s $, 
+		
+		\[\Pr(p_s \leq p_b) = F\left(\frac{p_b - \alpha_s}{\beta_s}\right)\]
+		
+		where $ F $ is the uniform CDF on [0,1]. Thus, the buyer's expected utility is given by 
+		\begin{align*}
+		\ev[u_b] &= \int_0^{\frac{p_b - \alpha_s}{\beta_s}} \left(v_b - \frac{1}{2}(p_s + p_b)\right) dv_s\\
+		&= \int_0^{\frac{p_b - \alpha_s}{\beta_s}} \left(v_b - \frac{1}{2} (p_b + \alpha_s + \beta_s v_s)\right)dv_s
+		\end{align*}
+		To optimize, using Liebniz's rule, I compute
+		\[\frac{\partial}{\partial p_b} \int_0^{\frac{p_b - \alpha_s}{\beta_s}} \left(v_b - \frac{1}{2} (p_b + \alpha_s + \beta_s v_s)\right)dv_s \]
+		and set the result equal to 0 to obtain  
+		\[p_b = \frac{2}{3}v_b + \frac{\alpha_s}{3}\]
+		
+		The seller's payoff, meanwhile, is $ \frac{1}{2}(p_s + p_b) - v_s$ if $ p_s \leq p_b $, and $ v_s $ otherwise. Thus, using the same procedure as for the buyer, I calculate
+		\[\frac{\partial}{\partial p_s}\int_0^{\frac{p_s - \alpha_b}{\beta_b}} v_s dv_b + \frac{\partial}{\partial p_s}\int_{\frac{p_s - \alpha_b}{\beta_b}}^1 \left(\frac{1}{2}(p_s + p_b) - v_s\right) dv_b \]
+		Setting this result equal to 0 and solving for $ p_s $ yields
+		\[p_s = \frac{4}{3} v_s + \frac{\beta_b + 2\alpha_b}{3}\]
+		To solve for the coefficients, I impose that $ p_b = \alpha_b + \beta_b v_b $ and $ p_s = \alpha_s + \beta_s v_s $:
+		\begin{align*}
+		\alpha_b + \beta_b v_b &= \frac{2}{3}v_b + \frac{\alpha_s}{3} \\
+		\implies\beta_b = \frac{2}{3}&, \quad\alpha_b = \frac{\alpha_s}{3} \\
+		\alpha_s + \beta_s v_s &=  \frac{4}{3} v_s + \frac{\beta_b + 2\alpha_b}{3} \\
+		\implies\beta_s = \frac{4}{3}&, \quad \alpha_s = \frac{\frac{2}{3} + 2\alpha_b}{3}
+		\end{align*}
+		solving yields $ \alpha_b = 2 / 21 $ and $ \alpha_s = 6 / 21 $. Thus, the optimal strategies are 
+		\begin{align*}
+		p_b &= \frac{2}{3}v_b + \frac{2}{21} \\
+		p_s &= \frac{4}{3}v_s + \frac{6}{21}
+		\end{align*}
+		
+		\item Note that trade only takes place if $ p_b - p_s \geq 0 $, or if 
+		\[\frac{2}{3}v_b + \frac{2}{21} - \frac{4}{3}v_s - \frac{6}{21} \geq 0 \]
+		Simplifying, we see that this implies
+		\[v_b - v_s \geq v_b - 2v_s \geq \frac{2}{7}\]
+		Thus, trade does not always take place if $ v_b \geq v_s $, and thus this auction is not efficient. I found \cite{double} to be very useful for this problem. 
+	\end{enumerate}
 \end{enumerate}
+
+\bibliographystyle{plainnat}
+\bibliography{assign3}
 
 \end{document}
