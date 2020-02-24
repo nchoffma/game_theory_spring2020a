@@ -1,0 +1,77 @@
+\documentclass[11pt]{article}
+\usepackage[margin = 1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm} % for proof environment
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{indentfirst}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{lscape}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{tikz}
+\usetikzlibrary{calc} % for positioning tikz nodes
+
+\renewcommand{\labelenumii}{\alph*)}
+\newcommand{\ev}{\mathbb{E}}
+
+%\tikzset{%
+%	hollow/.style = {circle,draw,inner sep=1.5},
+%	solid/.style = {circle,draw,inner sep=1.5,fill=black}%
+%}
+
+\begin{document}
+
+\begin{flushleft}
+	Nick Hoffman \\
+	Game Theory, Spring 2020 A \\
+	Assignment 4 \\
+\end{flushleft}
+
+\begin{enumerate}
+	\item In the job market signaling model, workers are of type $ \theta\in\{\theta_L, \theta_H\} = \{0.2, 1\} $, each with equal one-half probability. In order to obtain education level $ e $ as a signal to the firms, the workers pay cost $ e/\theta $. The firm sets its wages such that $ w(e) = \ev(\theta|e) $. Thus, a worker of type $\theta$ receives utility $ w(e) - \frac{e}{\theta} $. The firms form beliefs of the type $ \mu(\theta|e) $, the probability that the worker is of type $\theta$ given her level of education. 
+	\begin{enumerate}
+		\item In a separating equilibrium, workers of each type choose different levels of education $ e^* $, where $ e^*(\theta_L) < e^*(\theta_H) $. For simplicity, I denote these equilibrium levels of education $ e_L $ and $ e_H $, respectively. The firms, knowing this, can differentiate, and thus for the low worker, they set
+		\[w(e_L) = \ev(\theta_L|e_L) = \mu(e_L)\theta_L + \big(1 - \mu(e_l)\theta_H\big) = \theta_L\]
+		The low-type worker then solves
+		\[\max_e \theta_L - \frac{e_L}{0.2}\] 
+		and thus chooses $ e_L = 0 $. 
+		
+		The firm can set a range of wage schedules $ w(e) $ to support a range of education levels for the high type. As with the low type, the firm will set $ w(e_H) = \theta_H = 1 $. What remains to be determined is the level of education at or above which a worker can earn the wage of 1. To show the result visually, Figure () plots indifference curves for the high and low types:
+		
+		The firm can sustain any level of education for the high type $ e_H\in[0.16, 0.8] $ by offering $ w(e) = 1 $ for any level of education $ e\in[e_H, \infty] $. If they attempt to sustain $ e_H < 0.16 $, then the high-type workers are better off getting zero education. If the firm attempts to sustain $ e_H > 0.8 $, meanwhile, the low-type workers will also choose $ e_H $, and thus this level cannot be a separating equilibrium. Thus, the  equilibrium which sustains $ e_L = 0 $ and $ e_H = \hat{e} $ is characterized by firm beliefs
+		\[\mu(\theta_H|e) = \begin{cases}
+		0 & e\in[0, \hat{e}) \\ 
+		1 & e\in[\hat{e}, \infty)
+		\end{cases}\]
+		and wage schedule 
+		\[w(e) = \begin{cases}
+		0.2 & e\in[0, \hat{e}) \\ 
+		1 & e\in[\hat{e}, \infty)
+		\end{cases}\]
+		
+		\item In the pooling equilibrium, both types of workers choose the same level of education, the firm sets one wage, equal to the unconditional expectation of $\theta$:
+		\[w(e) = 0.5\theta_L + 0.5\theta_H = 0.6 \]
+		Figure () shows this wage along with indifference curves for the high and low type workers:
+		
+		The firm can sustain any pooling equilibrium level of education $ \hat{e}^*\in[0, 0.08] $. If they set $ \hat{e} > 0.08 $, the low-type workers are better off choosing $ e_L = 0 $. The pooling equilibrium that sustains $ \hat{e}^*\in[0, 0.08] $ is fully characterized by firm beliefs
+		\[\mu(e) = \begin{cases}
+		0 & e\in[0, \hat{e}) \\ 
+		\frac{1}{2} & e\in[\hat{e}, \infty)
+		\end{cases}\]
+		and wage schedule
+		\[w(e) = \begin{cases}
+		0.2 & e\in[0, \hat{e}) \\ 
+		0.6 & e\in[\hat{e}, \infty)
+		\end{cases}\]
+	\end{enumerate}
+
+	\item The tree for the extensive form of the game is as follows:
+	% https://sites.google.com/site/kochiuyu/Tikz#TOC-Signalling-Game
+	
+	There are no separating or pooling Perfect Bayesian equilibria in pure strategies. In order to find the mixed-strategy PBE, I define variables for the players' respective strategies. Let $ T_R $ and $ L_R $ denote Anna's actions, respectively, of taking and leaving her umbrella when it rains, and $ T_S $ and $ L_S $ the actions of taking and leaving when it is sunny. Anna's corresponding mixed strategies are $ \gamma_R $ and $\gamma_S$, indicating the probability of her taking her umbrella when it rains and is sunny, respectively. Note that because he cannot observe the weather forecast, Paul observes either $ (T_R, T_S) $ or $ (L_R, L_S) $. Thus, let $ \delta $ be the probability that Paul takes his umbrella given that he observes Anna leave hers, and $ \eta $ be the probability that he takes his umbrella given that Anna has taken hers. 
+\end{enumerate}
+
+\end{document}
