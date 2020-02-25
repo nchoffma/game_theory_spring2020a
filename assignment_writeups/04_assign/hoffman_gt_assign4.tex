@@ -71,7 +71,62 @@
 	\item The tree for the extensive form of the game is as follows:
 	% https://sites.google.com/site/kochiuyu/Tikz#TOC-Signalling-Game
 	
-	There are no separating or pooling Perfect Bayesian equilibria in pure strategies. In order to find the mixed-strategy PBE, I define variables for the players' respective strategies. Let $ T_R $ and $ L_R $ denote Anna's actions, respectively, of taking and leaving her umbrella when it rains, and $ T_S $ and $ L_S $ the actions of taking and leaving when it is sunny. Anna's corresponding mixed strategies are $ \gamma_R $ and $\gamma_S$, indicating the probability of her taking her umbrella when it rains and is sunny, respectively. Note that because he cannot observe the weather forecast, Paul observes either $ (T_R, T_S) $ or $ (L_R, L_S) $. Thus, let $ \delta $ be the probability that Paul takes his umbrella given that he observes Anna leave hers, and $ \eta $ be the probability that he takes his umbrella given that Anna has taken hers. 
+	There are no separating or pooling Perfect Bayesian equilibria in pure strategies. In order to find the mixed-strategy PBE, I define variables for the players' respective strategies. Let $ T_R $ and $ L_R $ denote Anna's actions, respectively, of taking and leaving her umbrella when it rains, and $ T_S $ and $ L_S $ the actions of taking and leaving when it is sunny. Anna's corresponding mixed strategies are $ \gamma_R $ and $\gamma_S$, indicating the probability of her taking her umbrella when it rains and is sunny, respectively. Note that because he cannot observe the weather forecast, Paul observes either $ (T_R, T_S) $ or $ (L_R, L_S) $. Thus, let $ \delta $ be the probability that Paul takes his umbrella given that he observes Anna leave hers, and $ \eta $ be the probability that he takes his umbrella given that Anna has taken hers. Finally, let $\alpha$ be the probability that Paul assigns to it raining when he observes $ L $, and $\beta$ be the probability that he assigns to it raining when he observes $ T $. The following diagram illustrates these probabilities:
+	
+	Paul's utilities from responding to Anna's actions are as follows:
+	\begin{align*}
+	\text{Observe L: }\quad &U(T) = 6\alpha - 2 \\
+	& U(L) = 2 - 4\alpha \\
+	\text{Observe T: } \quad &U(T) = 2\beta - 2 \\
+	&U(L) = 2 - 4\beta
+	\end{align*}
+	Thus, his best responses are as follows: 
+	\[BR(\alpha) = \begin{cases}
+	T & \alpha > \frac{2}{5} \\
+	[T,L] & \alpha = \frac{2}{5} \\
+	L & \alpha < \frac{2}{5} \\
+	\end{cases} \]%
+	\[BR(\beta) = \begin{cases}
+	T & \beta > \frac{2}{3} \\
+	[T,L] & \beta = \frac{2}{3} \\
+	L & \beta < \frac{2}{3} \\
+	\end{cases} \]
+	
+	To begin, note that $ \gamma_R = \gamma_S = 1 $ cannot be an equilibrium: in this case, Paul updates his beliefs in the following way: 
+	\[\beta = \frac{0.4\gamma_R}{0.4\gamma_R + 0.6\gamma_S} = 0.4\]
+	By the above, Paul plays $ L $. $\alpha$, then, must be $ 2/5 $, otherwise, these would be pure strategies, which do not constitute an equilibrium in this case. Here, however, there is no value for $\delta$ such that Amy is still better off playing $ (T_1, T_2) $. Thus, this cannot be an equilibrium.
+	
+	If Anna plays $ \gamma_R  = \gamma_S = 0 $, then Paul will update his beliefs in the following way:
+	\[\alpha = \frac{0.4}{0.4 + 0.6} = 0.4 = \frac{2}{5}\]
+	and thus he will randomize between $ T $ and $ L $. As before, $\beta$ must be $ 2/3 $, otherwise this would not be an equilibrium. To determine Paul's strategy, note that Anna's best responses at nodes $ x_1 $ and $ x_2 $ are:
+	\begin{align*}
+	x_1: \quad & U(T_1) = 3 - 3\eta \\
+	&U(L_1) = 1 - 3\delta \\
+	x_2:\quad & U(T_2) = 4\eta - 1 \\
+	& U(L_1) = 3\delta + 2
+	\end{align*}
+	Thus, Anna will be better off playing $ (L_1, L_2) $ if Paul sets his strategy such that, given $\eta$, 
+	\[\delta\in[\frac{3}{4}\eta - \frac{3}{4}, \eta - \frac{2}{3}]\]
+	Thus, the Perfect Bayesian Equilibrium is as follows: 
+	\begin{itemize}
+		\item $ P_1 $: $ \gamma_R = \gamma_S = 0 $ $ (L_1, L_2) $
+		\item \[P_2: \begin{cases}
+		\eta T \oplus (1 - \eta)L & \text{if $ (T_1, T_2) $} \\
+		\delta T \oplus (1 - \delta) L & \text{if $ (L_1, L_2) $}
+		\end{cases}\]
+		where 
+		\[\delta\in[\frac{3}{4}\eta - \frac{3}{4}, \eta - \frac{2}{3}]\]
+		\item Beliefs: $\alpha = 2/5$, $ \beta = 2/5 $ 
+	\end{itemize}
+
+	Note that this is the only PBE: if we consider $ \gamma_R\in(0,1) $ and $ \gamma_S\in(0,1) $, these proportions must be such that $\alpha = 2/5$ and $ \beta = 2/5 $. That is, they must be such that 
+	\begin{align*}
+	\frac{0.4\gamma_R}{0.4\gamma_R + 0.6\gamma_S} &= \frac{2}{3} \text{, and}\\
+	\frac{0.4(1 - \gamma_R)}{0.4(1 - \gamma_R) + 0.6(1 - \gamma_S)} &= \frac{2}{5} 
+	\end{align*}
+	There is no combination of $ \gamma_R\in(0,1) $ and $ \gamma_S\in(0,1) $ that satisfies both of the above equations. Thus, the PBE specified above is unique. 
+	
+	\item	
 \end{enumerate}
 
 \end{document}
