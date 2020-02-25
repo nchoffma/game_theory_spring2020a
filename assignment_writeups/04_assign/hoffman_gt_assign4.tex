@@ -119,14 +119,48 @@
 		\item Beliefs: $\alpha = 2/5$, $ \beta = 2/5 $ 
 	\end{itemize}
 
-	Note that this is the only PBE: if we consider $ \gamma_R\in(0,1) $ and $ \gamma_S\in(0,1) $, these proportions must be such that $\alpha = 2/5$ and $ \beta = 2/5 $. That is, they must be such that 
-	\begin{align*}
-	\frac{0.4\gamma_R}{0.4\gamma_R + 0.6\gamma_S} &= \frac{2}{3} \text{, and}\\
-	\frac{0.4(1 - \gamma_R)}{0.4(1 - \gamma_R) + 0.6(1 - \gamma_S)} &= \frac{2}{5} 
-	\end{align*}
-	There is no combination of $ \gamma_R\in(0,1) $ and $ \gamma_S\in(0,1) $ that satisfies both of the above equations. Thus, the PBE specified above is unique. 
+	Note that this is the only PBE: if we consider $ \gamma_R\in(0,1) $ and $ \gamma_S\in(0,1) $, these proportions Will affect Paul's beliefs $\alpha$ and $\beta$. 
 	
-	\item	
+	\item \begin{enumerate}
+		\item This game has two Perfect Bayesian equilibria:
+		\begin{enumerate}[label = \roman*.]
+			\item Strategies:
+			\begin{gather*}
+			P_1: \delta = 0 (R) \\
+			P_2: \beta = 0 (C) \\
+			P_3: \alpha = 1 (L)
+			\end{gather*}
+			Beliefs:
+			\begin{gather*}
+			P_2: \gamma = 0 \\
+			P_3: \mu = 0
+			\end{gather*}
+			
+			\item Strategies:
+			\begin{gather*}
+			P_1: \delta = 0 (R) \\
+			P_2: \beta = 1 (S) \\
+			P_3: \alpha = 0 (R)
+			\end{gather*}
+			Beliefs:
+			\begin{align*}
+			P_2: \gamma &= 0 \\
+			P_3: \mu &= \text{any beliefs}
+			\end{align*}
+		\end{enumerate}
+	
+		\item Of the two equilibria above, only the first is a sequential equilibria. To show this, consider the second strategy, where player 2 plays $ S $. Suppose that instead of playing $ S $ with probability one, player 2 ``trembles'', and plays $ C $ with probability $ \varepsilon^n $, such that $ \varepsilon^n\to 0 $. This allows us to specify player 3's beliefs about $\mu$, the conditional probability of being on the left side given that play reaches his turn. His belief is given by
+		\[\mu = \frac{(1 - \delta)\varepsilon^n}{\varepsilon^n} = (1 - \delta)\]
+		However, given that this is player 2's belief, it is optimal for him to play $ R $ if given the chance, as his expected payoffs are:
+		\[u_3(R) = \delta,\quad u_3(L) = 1 - \delta \]
+		In either case, R is a dominating strategy for player 1, and thus all players know that $\delta = 0$. Thus, while the second equilibrium above is a PBE, it is not a sequential PBE, as player 3's actions are not sequentially rational. 
+		
+		The first equilibrium, meanwhile, is sequentially rational. As above, player 3's conditional beliefs can be found using Bayes' Rule, in particular,
+		\[\mu = \frac{\delta (1 - \beta)}{1 - \beta} = \delta\]
+		Similarly, player 2 forms the belief $ \gamma = \delta $. Knowing this, player 3 will play $ R $, $\alpha = 1$. Player 2's payoffs, then, are as follows:
+		\[u_2(S) = 1 - \delta, \quad u_2(C) = 2\alpha(1 - \delta)\]
+		Because $\delta = 0$ and $\alpha = 1$, player 2 is better off playing $ C $, $\beta = 0$. Thus, at each information set in the first equilibrium, the players play sequentially rational strategies, and thus this is the sequential equilibrium. 
+	\end{enumerate}
 \end{enumerate}
 
 \end{document}
