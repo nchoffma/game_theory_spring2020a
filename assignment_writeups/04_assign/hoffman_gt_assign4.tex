@@ -39,7 +39,15 @@
 		\[\max_e \theta_L - \frac{e_L}{0.2}\] 
 		and thus chooses $ e_L = 0 $. 
 		
-		The firm can set a range of wage schedules $ w(e) $ to support a range of education levels for the high type. As with the low type, the firm will set $ w(e_H) = \theta_H = 1 $. What remains to be determined is the level of education at or above which a worker can earn the wage of 1. To show the result visually, Figure () plots indifference curves for the high and low types:
+		The firm can set a range of wage schedules $ w(e) $ to support a range of education levels for the high type. As with the low type, the firm will set $ w(e_H) = \theta_H = 1 $. What remains to be determined is the level of education at or above which a worker can earn the wage of 1. To show the result visually, Figure \ref{fig1} plots indifference curves for the high and low types:
+		
+		\begin{figure}[!htbp]
+			\centering
+			\caption{Separating Equilibrium}
+			\includegraphics[scale=0.6]{fig_1_separating}
+			\label{fig1}
+		\end{figure}
+		The red line shows the indifference curve for a worker of type $\theta_H$, and the blue for type $\theta_L$. The intersections of these indifference curves with the line at $\theta_H$ give bounds on the levels of education for the high type that can be supported in a separating equilibrium.
 		
 		The firm can sustain any level of education for the high type $ e_H\in[0.16, 0.8] $ by offering $ w(e) = 1 $ for any level of education $ e\in[e_H, \infty] $. If they attempt to sustain $ e_H < 0.16 $, then the high-type workers are better off getting zero education. If the firm attempts to sustain $ e_H > 0.8 $, meanwhile, the low-type workers will also choose $ e_H $, and thus this level cannot be a separating equilibrium. Thus, the  equilibrium which sustains $ e_L = 0 $ and $ e_H = \hat{e} $ is characterized by firm beliefs
 		\[\mu(\theta_H|e) = \begin{cases}
@@ -54,9 +62,17 @@
 		
 		\item In the pooling equilibrium, both types of workers choose the same level of education, the firm sets one wage, equal to the unconditional expectation of $\theta$:
 		\[w(e) = 0.5\theta_L + 0.5\theta_H = 0.6 \]
-		Figure () shows this wage along with indifference curves for the high and low type workers:
+		Figure \ref{fig2} shows this wage along with indifference curves for the high and low type workers:
 		
-		The firm can sustain any pooling equilibrium level of education $ \hat{e}^*\in[0, 0.08] $. If they set $ \hat{e} > 0.08 $, the low-type workers are better off choosing $ e_L = 0 $. The pooling equilibrium that sustains $ \hat{e}^*\in[0, 0.08] $ is fully characterized by firm beliefs
+		\begin{figure}[!htbp]
+			\centering
+			\caption{Pooling Equilibrium}
+			\includegraphics[scale=0.6]{fig_2_pooling}
+			\label{fig2}
+		\end{figure}
+		Here, the intersection of the blue indifference curve ($\theta_L$) and the line at $ \ev(\theta) = 0.6 $ is the maximum level of education that can be sustained in a pooling equilibrium.
+		
+		The firm can sustain any pooling equilibrium level of education $ \hat{e}\in[0, 0.08] $. If they set $ \hat{e} > 0.08 $, the low-type workers are better off choosing $ e_L = 0 $. The pooling equilibrium that sustains $ \hat{e}\in[0, 0.08] $ is fully characterized by firm beliefs
 		\[\mu(e) = \begin{cases}
 		0 & e\in[0, \hat{e}) \\ 
 		\frac{1}{2} & e\in[\hat{e}, \infty)
@@ -66,12 +82,26 @@
 		0.2 & e\in[0, \hat{e}) \\ 
 		0.6 & e\in[\hat{e}, \infty)
 		\end{cases}\]
-	\end{enumerate}
+	\end{enumerate} \newpage
 
 	\item The tree for the extensive form of the game is as follows:
-	% https://sites.google.com/site/kochiuyu/Tikz#TOC-Signalling-Game
 	
-	There are no separating or pooling Perfect Bayesian equilibria in pure strategies. In order to find the mixed-strategy PBE, I define variables for the players' respective strategies. Let $ T_R $ and $ L_R $ denote Anna's actions, respectively, of taking and leaving her umbrella when it rains, and $ T_S $ and $ L_S $ the actions of taking and leaving when it is sunny. Anna's corresponding mixed strategies are $ \gamma_R $ and $\gamma_S$, indicating the probability of her taking her umbrella when it rains and is sunny, respectively. Note that because he cannot observe the weather forecast, Paul observes either $ (T_R, T_S) $ or $ (L_R, L_S) $. Thus, let $ \delta $ be the probability that Paul takes his umbrella given that he observes Anna leave hers, and $ \eta $ be the probability that he takes his umbrella given that Anna has taken hers. Finally, let $\alpha$ be the probability that Paul assigns to it raining when he observes $ L $, and $\beta$ be the probability that he assigns to it raining when he observes $ T $. The following diagram illustrates these probabilities:
+	\begin{figure}[!h]
+		\centering
+		\caption{Game Tree}
+		\includegraphics[scale=0.6]{fig_3_tree}
+		\label{fig3}
+	\end{figure}
+
+
+	There are no separating or pooling Perfect Bayesian equilibria in pure strategies. In order to find the mixed-strategy PBE, I define variables for the players' respective strategies. Let $ T_R $ and $ L_R $ denote Anna's actions, respectively, of taking and leaving her umbrella when it rains, and $ T_S $ and $ L_S $ the actions of taking and leaving when it is sunny. Anna's corresponding mixed strategies are $ \gamma_R $ and $\gamma_S$, indicating the probability of her taking her umbrella when it rains and is sunny, respectively. Note that because he cannot observe the weather forecast, Paul observes either $ (T_R, T_S) $ or $ (L_R, L_S) $. To differentiate nodes, let $ x_1 $ represent the node at which  Anna chooses upon observing a forecast of rain, and $ x_2 $ the node at which she chooses upon observing sun. Let $ \delta $ be the probability that Paul takes his umbrella given that he observes Anna leave hers, and $ \eta $ be the probability that he takes his umbrella given that Anna has taken hers. Finally, let $\alpha$ be the probability that Paul assigns to it raining when he observes $ L $, and $\beta$ be the probability that he assigns to it raining when he observes $ T $. The following diagram illustrates these new variables: \newpage
+	
+	\begin{figure}[!h]
+		\centering
+		\caption{Game Tree, with Additional Detail}
+		\includegraphics[scale=0.6]{fig_4_tree_color}
+		\label{fig4}
+	\end{figure}
 	
 	Paul's utilities from responding to Anna's actions are as follows:
 	\begin{align*}
@@ -106,7 +136,7 @@
 	& U(L_1) = 3\delta + 2
 	\end{align*}
 	Thus, Anna will be better off playing $ (L_1, L_2) $ if Paul sets his strategy such that, given $\eta$, 
-	\[\delta\in[\frac{3}{4}\eta - \frac{3}{4}, \eta - \frac{2}{3}]\]
+	\[\delta\in\left[\frac{3}{4}\eta - \frac{3}{4}, \eta - \frac{2}{3}\right]\]
 	Thus, the Perfect Bayesian Equilibrium is as follows: 
 	\begin{itemize}
 		\item $ P_1 $: $ \gamma_R = \gamma_S = 0 $ $ (L_1, L_2) $
@@ -115,7 +145,7 @@
 		\delta T \oplus (1 - \delta) L & \text{if $ (L_1, L_2) $}
 		\end{cases}\]
 		where 
-		\[\delta\in[\frac{3}{4}\eta - \frac{3}{4}, \eta - \frac{2}{3}]\]
+		\[\delta\in\left[\frac{3}{4}\eta - \frac{3}{4}, \eta - \frac{2}{3}\right]\]
 		\item Beliefs: $\alpha = 2/5$, $ \beta = 2/5 $ 
 	\end{itemize}
 
@@ -124,11 +154,18 @@
 		\item $\alpha\neq 2/5$, $\beta\neq 2/3$ This case is not an equilibrium, as it would induce Paul to play pure strategies at both information sets--as mentioned above, no such equilibrium exists. 
 		\item $\alpha = 2/5$, $\beta = 2/3$ This would require $\gamma_R$ and $\gamma_S$ to be such that 
 		\begin{align*}
-		content...
+		\frac{0.4\gamma_R}{0.4\gamma_R + 0.6 \gamma_S} &= \frac{2}{3} \\
+		\frac{0.4(1 - \gamma_R)}{0.4(1 - \gamma_R) + 0.6 (1 - \gamma_S)} &= \frac{2}{5}
 		\end{align*}
-		\item 
-		\item 
+		There is no combination of $ \gamma_R\in(0,1) $ and $ \gamma_S\in(0,1) $ that satisfies both equations. 
+		\item $ \alpha \neq 2/5 $, $ \beta = 2/3 $. In this case, 
+		\[\frac{0.4\gamma_R}{0.4\gamma_R + 0.6 \gamma_S} = \frac{2}{3}\]
+		and thus $ \gamma_R = 2\gamma_S $, which implies $ \alpha < 2/5 $, and thus Paul plays $ L $ when he observes $ L $. Given this strategy, however, there is no randomization that Paul can play upon observing $ T $ that makes Anna indifferent at both $ x_1 $ and $ x_2 $, and thus this cannot be an equilibrium.
+		\item $ \alpha = 2/5 $, $ \beta \neq 2/3 $. In this case, 
+		\[\frac{0.4(1 - \gamma_R)}{0.4(1 - \gamma_R) + 0.6 (1 - \gamma_S)} = \frac{2}{5}\]
+		and thus $ \gamma_R = \gamma_S $, and so $\beta = 0.4$, and thus Paul plays $ T $ when he observes $ T $. However, there is no mixed strategy that Paul can play upon observing $ L $ such that Anna is still indifferent between the two, and thus this cannot be an equilibrium.
 	\end{enumerate}
+	Thus, the PBE described above is unique. 
 	
 	\item \begin{enumerate}
 		\item This game has two Perfect Bayesian equilibria:
