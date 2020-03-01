@@ -14,7 +14,7 @@
 \usepackage{tikz}
 \usetikzlibrary{calc} % for positioning tikz nodes
 
-\renewcommand{\labelenumii}{\alph*)}
+\renewcommand{\labelenumii}{\arabic*.}
 \newcommand{\ev}{\mathbb{E}}
 
 \begin{document}
@@ -26,9 +26,65 @@
 \end{flushleft}
 
 \begin{enumerate}
+	\item A town \( i\in\{X, Y, Z\} \) can be connected to a power grid directly at cost \( c_i \), or through another town at cost \( c_{i,j} \). These costs are as follows:
+	\begin{align*}
+		c_X &= 2 & c_{XY} &= 6 \\
+		c_Y &= 4 & c_{XZ} &= 1 \\
+		c_Z &= 5 & c_{YZ} &= 3 
+	\end{align*}
+	\begin{enumerate}
+		\item For each nonempty coalition of towns, the characteristic function is the negative of the minimum total cost of serving its members. The characteristic values are as follows: 
+		\begin{align*}
+			V(\{X\}) &= -2 & V(\{X,Y\}) &= -8 \\
+			V(\{Y\}) &= -4 & V(\{X,Z\}) &= -3 \\
+			V(\{Z\}) &= -5 & V(\{Y,Z\}) &= -7 \\
+			V(N) &= V(\{X, Y, Z\}) = -7 
+		\end{align*}
+		Note that we assume divisible payoffs, or in this case, divisible costs. That is, if towns \( i \) and \( j \) form a route to the power plant at total cost \( m \), I assume that each pays \( m/2 \). The costs to each member, by coalition, are shown in Table \ref{coalitions}:
+		
+		\begin{table}[!h]
+			\centering
+			\caption{Payoffs to coalitions of two towns}
+			\begin{tabular}{ c | c c c} 
+				 & \multicolumn{3}{c}{\emph{Cost}} \\
+			Coalition & \( X \) & \( Y \) & \( Z \) \\ \hline
+			\{\{X\}, \{Y,Z\}\} & -2 & -3.5 & -3.5 \\
+			\{\{Y\}, \{X,Z\}\} & -1.5 & -4 & -1.5 \\
+			\{\{Z\}, \{X,Y\}\} & -4 & -4 & -5 \\
+			\end{tabular}
+			\label{coalitions}
+		\end{table}
+		
+		Thus, an allocation in the core is as follows: \( Y \) connects to the power plant by itself, \( X \) connects to the power plant, and \( Z \) connects to \( X \). To show that this allocation is in the core, I define the payoffs from this allocation as \( x = [x_X, x_Y, x_Z] = [1.5, 4, 1.5] \), and show that these payoffs lie in the core using its definition:
+		\begin{enumerate}[label = \roman*.]
+			\item \( \sum_{i \in N} x_i = 7 = V(N) \)
+			\item \( \forall S, \sum_{i\in S}x_i \geq V(S) \): clearly, there is no coalition that blocks this allocation. If \( X \) or \( Z \) connect by themselves, they both pay a higher cost. If \( Z \) instead forms a coalition with \( Y \), \( Z \) pays a higher cost (\( 3.5 > 1.5 \)). If \( X \) instead forms a coalition with \( Y \), then \( X \) pays a higher cost (\( 4 > 1.5 \)). 
+		\end{enumerate}
+	\item As an example, I demonstrate here how I calculate the Shapley value for \( X \). The calculations for \( Y \) and \( Z \) are similar. Imagining \( X \) entering a room, there are four possibilities for which coalitions he might find therein: \( \emptyset, \{Y\}, \{Z\}, \{Y,Z\} \). The probability that \( X \) discovers \( \emptyset \) is \( 1/3 \), as is the probability that \( X \) discovers \( \{Y,Z\} \). The probability of \( X \) discovering \( \{Y\} \) or \( \{Z\} \) is \( 1/6 \) for either possibility. The contributions of \( X \) to the four coalitions is as follows:
+	\begin{align*}
+		V(\emptyset\cup X) - V(\emptyset) &= -2 \\
+		V(\{Y\}\cup X) - V(\{Y\}) &= -4 \\
+		V(\{Z\}\cup X) - V(\{Z\}) &= 2 \\
+		V(\{Y,Z\}\cup X) - V(\{Y,Z\}) &= 0
+	\end{align*}
+	Thus, 
+	\[ \varphi(X) = -\frac{1}{3}\cdot 2 - \frac{1}{6}\cdot 4 + \frac{1}{6}\cdot 2 - \frac{1}{3}\cdot 0 = -\frac{1}{3} \]
+	For each town, then, the Shapley value is as follows:
+	\begin{align*}
+		\varphi(X) &= -\frac{1}{3} \\
+		\varphi(Y) &= - 4\\
+		\varphi(Z) &= -\frac{8}{3}
+	\end{align*}
+	Note that \( \varphi(X) + \varphi(Y) + \varphi(Z) = -7 = V(N) \), as required. Additionally, the allocation of giving each town their Shapley value is in the core; there is no coalition that blocks this allocation. No town is better off connecting on their own than receiving this allocation. If all of the three towns form a coalition together, each pays \( 7/3 \), and thus \( X \) is made worse off. None of the three coalitions involving two towns in Table \ref{coalitions} make both of the towns who connect better off, and thus none of these allocations block the Shapley allocation. 
+
+	\end{enumerate}
 	\item 
-	\item 
-	\item 
+	\item Three men and three women have the following preferences:
+	\begin{align*}
+		P(m_1) &= w_1, w_3, w_2 & P(w_1) &= m_3, m_2, m_1 \\
+		P(m_2) &= w_2, w_1, w_3 & P(w_2) &= m_1, m_3, m_2 \\
+		P(m_3) &= w_3, w_2, w_1 & P(w_3) &= m_2, m_1, m_3 \\
+	\end{align*}
 	\item 
 \end{enumerate}
 
