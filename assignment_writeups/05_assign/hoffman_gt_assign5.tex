@@ -14,7 +14,7 @@
 \usepackage{tikz}
 \usetikzlibrary{calc} % for positioning tikz nodes
 
-\renewcommand{\labelenumii}{\arabic*.}
+\renewcommand{\labelenumii}{\arabic*)}
 \newcommand{\ev}{\mathbb{E}}
 
 \begin{document}
@@ -78,14 +78,79 @@
 	Note that \( \varphi(X) + \varphi(Y) + \varphi(Z) = -7 = V(N) \), as required. Additionally, the allocation of giving each town their Shapley value is in the core; there is no coalition that blocks this allocation. No town is better off connecting on their own than receiving this allocation. If all of the three towns form a coalition together, each pays \( 7/3 \), and thus \( X \) is made worse off. None of the three coalitions involving two towns in Table \ref{coalitions} make both of the towns who connect better off, and thus none of these allocations block the Shapley allocation. 
 
 	\end{enumerate}
-	\item 
+	\item The coalitional game has \( N = \{1,2,3,4\} \) players and characteristic function
+	\[V(s) = \begin{cases}
+		1 & \text{if \( S = N \)} \\
+		\frac{3}{4} & \text{if \( S = \{1,2\}, \{1,3\}, \{1,4\}, \) or \( \{2,3,4\} \)} \\
+		0 & \text{otherwise}
+	\end{cases}\]
+	The core of this game is empty. As proof, consider the following set of balanced weights: 
+	\begin{table}[!h]
+		\centering
+		\begin{tabular}{c | c }
+			\( S \) & \( \lambda_S \) \\ \hline
+			\( \{1,2\} \) & \( \frac{1}{3} \) \\
+			\( \{1,3\} \) & \( \frac{1}{3} \) \\
+			\( \{1,4\} \) & \( \frac{1}{3} \) \\
+			\( \{2,3,4\} \) & \( \frac{2}{3} \)\\
+		\end{tabular}
+	\end{table}
+
+	For any other coalition \( S\subset N \), \( \lambda_S = 0 \). With these weights, 
+	\[\sum_{S\subset N} \lambda(S) V(S) = \frac{5}{4} > V(N) = 1\]
+	Therefore, it is clear that this game is not balanced. Thus, by the Bondareva-Shapley theorem--which states that a game has a nonempty core if and only if it is balanced--the core of this game is empty. 
+
 	\item Three men and three women have the following preferences:
 	\begin{align*}
 		P(m_1) &= w_1, w_3, w_2 & P(w_1) &= m_3, m_2, m_1 \\
 		P(m_2) &= w_2, w_1, w_3 & P(w_2) &= m_1, m_3, m_2 \\
 		P(m_3) &= w_3, w_2, w_1 & P(w_3) &= m_2, m_1, m_3 \\
 	\end{align*}
-	\item 
+	
+	\begin{enumerate}
+		\item The outcome of the deferred-acceptance algorithm in which the men propose is as follows:
+		\begin{gather*}
+			m_1 w_1 \\
+			m_2 w_2 \\
+			m_3 w_3
+		\end{gather*}
+		Meanwhile, if the women propose, the mpairings resulting from the DA algorithm are:
+		\begin{gather*}
+			m_1 w_2 \\
+			m_2 w_3 \\
+			m_3 w_1
+		\end{gather*}
+		Note that these are not the only stable matches; the following is also stable:
+		\begin{gather*}
+			m_1 w_3 \\
+			m_2 w_1 \\
+			m_3 w_2
+		\end{gather*}
+		In this case, everyone ends up with their second-best partner. 
+	
+		\item If the men and women are allowed to strategically submit their preferences to the algorithm--meaning they are free to omit options strategically--the following outcome will be the Nash Equilibrium:
+		\begin{itemize}
+			\item Preferences:
+			\begin{align*}
+				P(m_1) &= w_1, w_3, w_2 & P(w_1) &= m_3 \\
+				P(m_2) &= w_2, w_1, w_3 & P(w_2) &= m_1 \\
+				P(m_3) &= w_3, w_2, w_1 & P(w_3) &= m_2 \\
+			\end{align*}
+			\item Outcome:
+			\begin{gather*}
+				m_1 w_2 \\
+				m_2 w_3 \\
+				m_3 w_1
+			\end{gather*}
+		\end{itemize}
+		This outcome is a Nash Equilibrium because no agent has any incentive to deviate. If any of the women submit any additional preferences after their first option, they will end up with a worse pairing. If any of the men attempt to strategically omit women from their preference ordering, meanwhile, they know that they will end up alone. Thus, even though the men end up with their worst option, they have no incentive to change their strategy. This is not the only Nash Equilibrium outcome: the men submitting only their first preference and the women submitting all three is a Nash Equilibrium set of strategies, as is the strategy wherein everyone submits their first two preferences. 
+	\end{enumerate}
+
+	\item In the second-price auction with reserve value, two players submit bids \( b_1 \) and \( b_2 \). Their valuations are distributed on the interval \( [0,1] \) with distribution function \( F(v) = v^2 \). If the highest bid is greater than the reserve price \( r \), the winner pays the maximum of the second-highest bid and \( r \). 
+	\begin{enumerate}
+		\item A bidder's optimal strategy is to bid their valuation, i.e. \( b_i = v_i \), as is always the case in second-price auctions. The addition of a reserve price does not change this strategy: if a bidder's valuation is below the reserve price, they are better off bidding their valuation and losing than bidding too high (and thus receiving negative payoff). If a bidder's valuation is above the reserve price, but below the valuation of the other bidder, they will end up with a negative payoff if they bid too high and win. 
+		\item 
+	\end{enumerate}
 \end{enumerate}
 
 \end{document}
